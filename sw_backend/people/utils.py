@@ -27,11 +27,12 @@ def update_last_update_date():
 
 
 def fetch_data(url):
+    # url = 'https://www.google.com'
     result = requests.get(url)
     if getattr(result, 'status_code', 0) == status.HTTP_200_OK:
         try:
             return json.loads(result.content)
-        except:
+        except json.JSONDecodeError:
             # TODO: set up logger
             pass
     return dict()
@@ -82,11 +83,11 @@ def substitute_homeworld_names(data):
 def refresh_characters():
     data = get_resource_data(PEOPLE_URL)
     data = substitute_homeworld_names(data)
-    serializer = CharacterSerializer(data=data, many=True)
-    serializer.is_valid(raise_exception=True)
-    # After validation we can safely clean Character records
-    # knowing that they will be replaced by freshly fetched data
-    Character.objects.all().delete()
-    serializer.save()
-    update_last_update_date()
-    return data
+    if data:
+        serializer = CharacterSerializer(data=data, many=True)
+        serializer.is_valid(raise_exception=True)
+        # After validation we can safely clean Character records
+        # knowing that they will be replaced by freshly fetched data
+        Character.objects.all().delete()
+        serializer.save()
+        update_last_update_date()

@@ -15,7 +15,6 @@ class CharacterView(generics.ListAPIView):
         INTERVAL = getattr(settings, 'UPDATE_INTERVAL', 0)
         LAST_UPDATE = get_last_update_date()
         if (not LAST_UPDATE or
-            LAST_UPDATE and datetime.now()-LAST_UPDATE > timedelta(hours=INTERVAL)
-        ):
+           LAST_UPDATE and datetime.now()-LAST_UPDATE > timedelta(hours=INTERVAL)):
             refresh_characters()
         return super().get(request, *args, **kwargs)
