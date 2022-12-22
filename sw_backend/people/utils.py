@@ -1,13 +1,29 @@
 import json
 import requests
+import threading
+from datetime import datetime
 
 from django.conf import settings
+from django.core.cache import cache
 from rest_framework import status
 
 from people.serializers import CharacterSerializer
+from people.models import Character
 
 PEOPLE_URL = getattr(settings, 'PEOPLE_URL', '')
 HOMEWORLD_URL = getattr(settings, 'HOMEWORLD_URL', '')
+
+
+update_lock = threading.Lock()
+
+
+def get_last_update_date():
+    return cache.get('CHARACTER_LAST_UPDATE_DATE')
+
+
+def update_last_update_date():
+    with update_lock:
+        cache.set('CHARACTER_LAST_UPDATE_DATE', datetime.now())
 
 
 def fetch_data(url):
@@ -63,10 +79,14 @@ def substitute_homeworld_names(data):
     return data
 
 
-def get_people():
+def refresh_characters():
     data = get_resource_data(PEOPLE_URL)
     data = substitute_homeworld_names(data)
     serializer = CharacterSerializer(data=data, many=True)
     serializer.is_valid(raise_exception=True)
+    # After validation we can safely clean Character records
+    # knowing that they will be replaced by freshly fetched data
+    Character.objects.all().delete()
     serializer.save()
+    update_last_update_date()
     return data

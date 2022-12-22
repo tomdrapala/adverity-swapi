@@ -110,6 +110,14 @@ DATABASES = {
     # }
 }
 
+# TODO: take care of creating database table: python manage.py createcachetable
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.db.DatabaseCache',
+        'LOCATION': 'cache_table',
+    }
+}
+
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
 
@@ -154,3 +162,5 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 SWAPI_URL = 'https://swapi.dev/api/'
 PEOPLE_URL = f'{SWAPI_URL}/people/'
 HOMEWORLD_URL = f'{SWAPI_URL}/planets/'
+
+UPDATE_INTERVAL = 1  # hours

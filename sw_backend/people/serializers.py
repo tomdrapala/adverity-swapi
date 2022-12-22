@@ -2,7 +2,7 @@ from rest_framework import serializers
 
 from people.models import Character
 
-EMPTY_VALUE = ['unknown', 'n/a']
+EMPTY_VALUE = ['unknown', 'n/a', 'none']
 
 
 class CharacterSerializer(serializers.ModelSerializer):
@@ -10,14 +10,14 @@ class CharacterSerializer(serializers.ModelSerializer):
         model = Character
         exclude = ()
 
-    def empty_value_list_validation(self, value):
-        if value[0] in EMPTY_VALUE:
-            return list()
-        return value
-
     def empty_value_validation(self, value):
         if value in EMPTY_VALUE:
             return None
+        return value
+
+    def empty_value_list_validation(self, value):
+        if value[0] in EMPTY_VALUE and len(value) == 1:
+            return list()
         return value
 
     def validate_skin_color(self, value):
