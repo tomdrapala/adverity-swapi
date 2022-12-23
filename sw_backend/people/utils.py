@@ -39,6 +39,8 @@ def fetch_data(url):
 
 
 def get_resource_data(url):
+    # To decrease waiting time of data fetch we could for example
+    # send requests in multiple threads or processes
     data = list()
     chunk = fetch_data(url)
     data.extend(chunk.get('results', []))

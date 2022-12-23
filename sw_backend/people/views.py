@@ -12,9 +12,12 @@ class CharacterView(generics.ListAPIView):
     queryset = Character.objects.all()
 
     def get(self, request, *args, **kwargs):
-        INTERVAL = getattr(settings, 'UPDATE_INTERVAL', 0)
+        # TODO: implement some safety mechanism if cache_table is not available
+        # LAST_UPDATE is cached variable that holds information about time of last table update.
+        # It has expiration date set to 3600 seconds - 1 hour.
+        # If variable has expired it will be equal None.
+        # Expiration time can be changed by 'TIMEOUT' value in CACHES settings.
         LAST_UPDATE = get_last_update_date()
-        if (not LAST_UPDATE or
-           LAST_UPDATE and datetime.now()-LAST_UPDATE > timedelta(hours=INTERVAL)):
+        if not LAST_UPDATE:
             refresh_characters()
         return super().get(request, *args, **kwargs)
