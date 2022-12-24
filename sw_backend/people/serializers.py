@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from people.models import Character
+from people.models import Character, People
 
 EMPTY_VALUE = ['unknown', 'n/a', 'none']
 
@@ -54,3 +54,9 @@ class CharacterSerializer(serializers.ModelSerializer):
         if data.get('hair_color'):
             data['hair_color'] = data['hair_color'].split(',')
         return super().to_internal_value(data)
+
+
+class PeopleSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = People
+        exclude = ()

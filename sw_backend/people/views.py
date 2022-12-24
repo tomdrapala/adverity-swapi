@@ -1,10 +1,11 @@
-from rest_framework import generics
+from rest_framework import generics, views, status
+from rest_framework.response import Response
 from datetime import timedelta, datetime
 from django.conf import settings
 
-from people.models import Character
-from people.serializers import CharacterSerializer
-from people.utils import refresh_characters, get_last_update_date
+from people.models import Character, People
+from people.serializers import CharacterSerializer, PeopleSerializer
+from people.utils import refresh_characters, get_last_update_date, fetch_people_data
 
 
 class CharacterView(generics.ListAPIView):
@@ -21,3 +22,14 @@ class CharacterView(generics.ListAPIView):
         if not LAST_UPDATE:
             refresh_characters()
         return super().get(request, *args, **kwargs)
+
+
+class FetchPeopleDataView(views.APIView):
+    serializer_class = PeopleSerializer
+    queryset = People.objects.all()
+
+    def post(self, request, *args, **kwargs):
+        data = fetch_people_data()
+        # TODO: save fetched data into csv file and save it in People table
+        # serializer = PeopleSerializer(data=data)
+        return Response(status=status.HTTP_201_CREATED, data=data)

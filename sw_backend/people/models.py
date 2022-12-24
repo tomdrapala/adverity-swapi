@@ -2,6 +2,12 @@ from django.db import models
 from django.contrib.postgres.fields import ArrayField
 
 
+class People(models.Model):
+    name = models.CharField(max_length=150)
+    date_created = models.DateTimeField(auto_now_add=True)
+    file = models.FileField(upload_to='people')
+
+
 class Character(models.Model):
     name = models.CharField(max_length=150)
     height = models.PositiveSmallIntegerField(null=True, blank=True)

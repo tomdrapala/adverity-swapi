@@ -93,3 +93,12 @@ def refresh_characters():
         Character.objects.all().delete()
         serializer.save()
         update_last_update_date()
+
+
+def fetch_people_data():
+    data = get_resource_data(PEOPLE_URL)
+    data = substitute_homeworld_names(data)
+    if data:
+        serializer = CharacterSerializer(data=data, many=True)
+        serializer.is_valid(raise_exception=True)
+        return serializer.validated_data
