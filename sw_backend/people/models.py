@@ -3,9 +3,22 @@ from django.contrib.postgres.fields import ArrayField
 
 
 class People(models.Model):
-    name = models.CharField(max_length=150)
+    class PeopleManager(models.Manager):
+        # `is_removed` is not used right now, but we could use it in future to make sure our data is valid,
+        # by setting up some logic for checking are all files still present in the file system.
+        # Objects with non-existent files could be marked as removed, 
+        # allowing us keep info that such file was created.
+        # For example it could be some scheduled Celery task,
+        # pos_save signal, function triggered by GET or POST signals etc.
+        def existing(self):
+            return self.filter(is_removed=False)
+
+    objects = PeopleManager()
+
+    file_name = models.CharField(max_length=150)
     date_created = models.DateTimeField(auto_now_add=True)
-    file = models.FileField(upload_to='people')
+    is_removed = models.BooleanField(default=False, blank=True)
+
 
 
 class Character(models.Model):

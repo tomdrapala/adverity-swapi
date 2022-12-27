@@ -5,6 +5,16 @@ from people.models import Character, People
 EMPTY_VALUE = ['unknown', 'n/a', 'none']
 
 
+class PeopleSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = People
+        exclude = ('is_removed',)
+
+    def to_internal_value(self, data):
+        a = 1
+        return super().to_internal_value(data)
+
+
 class CharacterSerializer(serializers.ModelSerializer):
     class Meta:
         model = Character
@@ -17,7 +27,7 @@ class CharacterSerializer(serializers.ModelSerializer):
 
     def empty_value_list_validation(self, value):
         if value[0] in EMPTY_VALUE and len(value) == 1:
-            return list()
+            return None
         return value
 
     def validate_skin_color(self, value):
@@ -40,10 +50,10 @@ class CharacterSerializer(serializers.ModelSerializer):
 
     def to_internal_value(self, data):
         if data.get('height') in EMPTY_VALUE:
-            data.pop('height')
+            data['height'] = None
         if data.get('mass') in EMPTY_VALUE:
-            data.pop('mass')
-        if data.get('mass'):
+            data['mass'] = None
+        elif data.get('mass'):
             data['mass'] = data['mass'].replace(',', '').replace('.', '')
         if data.get('birth_year'):
             data['birth_year'] = data['birth_year'].replace(',', '').replace('.', '')
@@ -54,9 +64,3 @@ class CharacterSerializer(serializers.ModelSerializer):
         if data.get('hair_color'):
             data['hair_color'] = data['hair_color'].split(',')
         return super().to_internal_value(data)
-
-
-class PeopleSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = People
-        exclude = ()

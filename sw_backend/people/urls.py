@@ -1,9 +1,14 @@
-from django.urls import path
+from django.urls import path, include
+from rest_framework import routers
 
-from people.views import CharacterView, FetchPeopleDataView
+from people.views import FetchPeopleDataView
+from people.viewsets import PeopleViewSet
+
+user_router = routers.SimpleRouter()
+user_router.register(r'', PeopleViewSet, basename='people_viewset')
 
 
 urlpatterns = [
-    path('', CharacterView.as_view(), name='character_list_view'),
     path('fetch_people_data/', FetchPeopleDataView.as_view(), name='fetch_people_data_view'),
+    path('', include(user_router.urls)),
 ]

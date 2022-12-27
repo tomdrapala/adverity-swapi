@@ -27,7 +27,6 @@ def update_last_update_date():
 
 
 def fetch_data(url):
-    # url = 'https://www.google.com'
     result = requests.get(url)
     if getattr(result, 'status_code', 0) == status.HTTP_200_OK:
         try:
@@ -41,25 +40,25 @@ def fetch_data(url):
 def get_resource_data(url):
     # To decrease waiting time of data fetch we could for example
     # send requests in multiple threads or processes
-    data = list()
-    chunk = fetch_data(url)
-    data.extend(chunk.get('results', []))
-    while chunk.get('next'):
-        chunk = fetch_data(chunk['next'])
-        data.extend(chunk.get('results'))
-    # with open('local/people.json', 'r') as file:
-    #     data = json.load(file)
+    # data = list()
+    # chunk = fetch_data(url)
+    # data.extend(chunk.get('results', []))
+    # while chunk.get('next'):
+    #     chunk = fetch_data(chunk['next'])
+    #     data.extend(chunk.get('results'))
+    with open('local/people.json', 'r') as file:
+        data = json.load(file)
     return data
 
 
 def get_homeworld_mapping(homeworld_data):
-    mapping = dict()
-    for url in homeworld_data:
-        planet_id = url.split('/')[-2]
-        if planet_id not in mapping:
-            planet = fetch_data(url)
-            if name := planet.get('name'):
-                mapping[planet_id] = name
+    # mapping = dict()
+    # for url in homeworld_data:
+    #     planet_id = url.split('/')[-2]
+    #     if planet_id not in mapping:
+    #         planet = fetch_data(url)
+    #         if name := planet.get('name'):
+    #             mapping[planet_id] = name
 
     # Alternative version
     # homeworld_data = get_resource_data(HOMEWORLD_URL)
@@ -68,8 +67,8 @@ def get_homeworld_mapping(homeworld_data):
     #     planet_id = obj['url'].split('/')[-2]
     #     mapping[planet_id] = obj['name']
 
-    # with open('local/planet_mapping.json', 'r') as file:
-    #     mapping = json.load(file)
+    with open('local/planet_mapping.json', 'r') as file:
+        mapping = json.load(file)
     return mapping
 
 

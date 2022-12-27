@@ -1,11 +1,18 @@
-from rest_framework import generics, views, status
-from rest_framework.response import Response
-from datetime import timedelta, datetime
-from django.conf import settings
+from datetime import datetime, timedelta
 
+import csv
+import os
+import petl as etl
+from django.conf import settings
+from django.core.files import File
+from rest_framework import generics, status, views, mixins
+from rest_framework.response import Response
+
+from people import PEOPLE_CSV_PATH
 from people.models import Character, People
 from people.serializers import CharacterSerializer, PeopleSerializer
-from people.utils import refresh_characters, get_last_update_date, fetch_people_data
+from people.utils import (fetch_people_data, get_last_update_date,
+                          refresh_characters)
 
 
 class CharacterView(generics.ListAPIView):
@@ -25,11 +32,22 @@ class CharacterView(generics.ListAPIView):
 
 
 class FetchPeopleDataView(views.APIView):
-    serializer_class = PeopleSerializer
-    queryset = People.objects.all()
-
     def post(self, request, *args, **kwargs):
-        data = fetch_people_data()
-        # TODO: save fetched data into csv file and save it in People table
-        # serializer = PeopleSerializer(data=data)
+        characters_data = fetch_people_data()
+        name = f'{datetime.now().strftime("%Y-%m-%d %H-%M-%S")}.csv'
+        file_path = f'{PEOPLE_CSV_PATH}/{name}'
+
+        # table = [[field for field in characters_data[0]]]
+        # etl.tocsv(table, file_path)
+        # for row in characters_data:
+        #     etl.io.csv.appendcsv([value for value in row.values()], file_path)
+        with open(file_path, 'w') as file:
+            writer = csv.writer(file)
+            writer.writerow([field for field in characters_data[0]])
+            for row in characters_data:
+                writer.writerow([value for value in row.values()])
+        data = {'file_name': name}
+        serializer = PeopleSerializer(data=data)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
         return Response(status=status.HTTP_201_CREATED, data=data)
