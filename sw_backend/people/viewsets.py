@@ -9,7 +9,7 @@ from people.models import People
 from people.serializers import PeopleSerializer
 
 
-class PeopleViewSet(viewsets.ReadOnlyModelViewSet):
+class PeopleAPIViewSet(viewsets.ReadOnlyModelViewSet):
     serializer_class = PeopleSerializer
     queryset = People.objects.existing()
 

@@ -167,5 +167,3 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 SWAPI_URL = 'https://swapi.dev/api/'
 PEOPLE_URL = f'{SWAPI_URL}/people/'
 HOMEWORLD_URL = f'{SWAPI_URL}/planets/'
-
-UPDATE_INTERVAL = 1  # hours

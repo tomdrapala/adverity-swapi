@@ -22,6 +22,7 @@ class People(models.Model):
 
 
 class Character(models.Model):
+    # TODO: add edited data somewhere
     name = models.CharField(max_length=150)
     height = models.PositiveSmallIntegerField(null=True, blank=True)
     mass = models.PositiveSmallIntegerField(null=True, blank=True)

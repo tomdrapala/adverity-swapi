@@ -20,9 +20,12 @@ from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
 from rest_framework import permissions
 
+from people.urls import api_people_urlpatterns, people_urlpatterns
+
 
 urlpatterns = [
-    path('people/', include('people.urls')),
+    path('', include(people_urlpatterns)),
+    path('api/people/', include(api_people_urlpatterns)),
 ]
 
 # Swagger DOCS

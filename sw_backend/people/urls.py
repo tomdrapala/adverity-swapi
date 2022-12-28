@@ -1,14 +1,19 @@
 from django.urls import path, include
 from rest_framework import routers
 
-from people.views import FetchPeopleDataView
-from people.viewsets import PeopleViewSet
+from people.views import FetchPeopleAPIView, EntryView
+from people.viewsets import PeopleAPIViewSet
 
-user_router = routers.SimpleRouter()
-user_router.register(r'', PeopleViewSet, basename='people_viewset')
+router = routers.SimpleRouter()
+router.register(r'', PeopleAPIViewSet, basename='people_viewset')
 
 
-urlpatterns = [
-    path('fetch_people_data/', FetchPeopleDataView.as_view(), name='fetch_people_data_view'),
-    path('', include(user_router.urls)),
+people_urlpatterns = [
+    path('', EntryView.as_view(), name='entry_view'),
+]
+
+
+api_people_urlpatterns = [
+    path('fetch_data/', FetchPeopleAPIView.as_view(), name='fetch_people_data_view'),
+    path('', include(router.urls)),
 ]

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    {% load static %}
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Star Wars Explorer</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Jost:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="{% static 'people/style.css' %}">
+    <script src="https://unpkg.com/vue@next" defer></script>
+    <script src="{% static 'people/app.js' %}" defer></script>
+    <script type='text/javascript'>
+      var people = {{ people_data|safe }};
+    </script>
+  </head>
+  <body>
+    <header>
+      <h1>Star Wars Characters Explorer</h1>
+    </header>
+
+    <section id="collections">
+      <h2>Collections</h2>
+      <input type="text" v-model="enteredGoalValue"/>
+      <button @click="fetchData">Fetch data</button>
+      <p v-if="people.length === 0">No people data available. Please fetch the fresh data.</p>
+      <ul v-else>
+        <li v-for="person in people" :key="person.id">
+          [[ person ]]
+        </li>
+      </ul>
+    </section>
+  </body>
+</html>

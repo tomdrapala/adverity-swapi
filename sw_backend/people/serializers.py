@@ -10,10 +10,6 @@ class PeopleSerializer(serializers.ModelSerializer):
         model = People
         exclude = ('is_removed',)
 
-    def to_internal_value(self, data):
-        a = 1
-        return super().to_internal_value(data)
-
 
 class CharacterSerializer(serializers.ModelSerializer):
     class Meta:
