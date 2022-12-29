@@ -1,3 +1,4 @@
+from datetime import datetime
 from rest_framework import serializers
 
 from people.models import Character, People
@@ -9,6 +10,12 @@ class PeopleSerializer(serializers.ModelSerializer):
     class Meta:
         model = People
         exclude = ('is_removed',)
+
+    def to_representation(self, instance):
+        ret = super().to_representation(instance)
+        ret['date_created'] = datetime.strptime(
+            ret['date_created'], '%Y-%m-%dT%H:%M:%S.%fZ').strftime("%d %B %Y, %H:%M:%S")
+        return ret
 
 
 class CharacterSerializer(serializers.ModelSerializer):

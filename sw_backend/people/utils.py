@@ -40,25 +40,25 @@ def fetch_data(url):
 def get_resource_data(url):
     # To decrease waiting time of data fetch we could for example
     # send requests in multiple threads or processes
-    # data = list()
-    # chunk = fetch_data(url)
-    # data.extend(chunk.get('results', []))
-    # while chunk.get('next'):
-    #     chunk = fetch_data(chunk['next'])
-    #     data.extend(chunk.get('results'))
-    with open('local/people.json', 'r') as file:
-        data = json.load(file)
+    data = list()
+    chunk = fetch_data(url)
+    data.extend(chunk.get('results', []))
+    while chunk.get('next'):
+        chunk = fetch_data(chunk['next'])
+        data.extend(chunk.get('results'))
+    # with open('local/people.json', 'r') as file:
+    #     data = json.load(file)
     return data
 
 
 def get_homeworld_mapping(homeworld_data):
-    # mapping = dict()
-    # for url in homeworld_data:
-    #     planet_id = url.split('/')[-2]
-    #     if planet_id not in mapping:
-    #         planet = fetch_data(url)
-    #         if name := planet.get('name'):
-    #             mapping[planet_id] = name
+    mapping = dict()
+    for url in homeworld_data:
+        planet_id = url.split('/')[-2]
+        if planet_id not in mapping:
+            planet = fetch_data(url)
+            if name := planet.get('name'):
+                mapping[planet_id] = name
 
     # Alternative version
     # homeworld_data = get_resource_data(HOMEWORLD_URL)
@@ -67,8 +67,8 @@ def get_homeworld_mapping(homeworld_data):
     #     planet_id = obj['url'].split('/')[-2]
     #     mapping[planet_id] = obj['name']
 
-    with open('local/planet_mapping.json', 'r') as file:
-        mapping = json.load(file)
+    # with open('local/planet_mapping.json', 'r') as file:
+    #     mapping = json.load(file)
     return mapping
 
 
@@ -81,17 +81,17 @@ def substitute_homeworld_names(data):
     return data
 
 
-def refresh_characters():
-    data = get_resource_data(PEOPLE_URL)
-    data = substitute_homeworld_names(data)
-    if data:
-        serializer = CharacterSerializer(data=data, many=True)
-        serializer.is_valid(raise_exception=True)
-        # After validation we can safely clean Character records
-        # knowing that they will be replaced by freshly fetched data
-        Character.objects.all().delete()
-        serializer.save()
-        update_last_update_date()
+# def refresh_characters():
+#     data = get_resource_data(PEOPLE_URL)
+#     data = substitute_homeworld_names(data)
+#     if data:
+#         serializer = CharacterSerializer(data=data, many=True)
+#         serializer.is_valid(raise_exception=True)
+#         # After validation we can safely clean Character records
+#         # knowing that they will be replaced by freshly fetched data
+#         Character.objects.all().delete()
+#         serializer.save()
+#         update_last_update_date()
 
 
 def fetch_people_data():

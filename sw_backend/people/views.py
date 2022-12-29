@@ -13,16 +13,12 @@ from people.serializers import PeopleSerializer
 from people.utils import fetch_people_data
 
 
-class EntryView(TemplateView):
+class PeopleListView(TemplateView):
     template_name = 'people/home.html'
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        queryset = People.objects.existing()
-        serializer = PeopleSerializer(queryset, many=True)
-        context['people_data'] = json.dumps(serializer.data)
-        # context['people_data'] = []
-        return context
+
+class PeopleDetailView(TemplateView):
+    template_name = 'people/detail.html'
 
 
 # class CharacterAPIView(generics.ListAPIView):
@@ -60,4 +56,4 @@ class FetchPeopleAPIView(views.APIView):
         serializer = PeopleSerializer(data=data)
         serializer.is_valid(raise_exception=True)
         serializer.save()
-        return Response(status=status.HTTP_201_CREATED, data=data)
+        return Response(status=status.HTTP_201_CREATED, data=serializer.data)

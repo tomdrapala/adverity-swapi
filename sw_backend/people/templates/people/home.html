@@ -9,26 +9,31 @@
       href="https://fonts.googleapis.com/css2?family=Jost:wght@400;700&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="{% static 'people/style.css' %}">
+    <link rel="stylesheet" href="{% static 'people/style.css' %}" />
     <script src="https://unpkg.com/vue@next" defer></script>
-    <script src="{% static 'people/app.js' %}" defer></script>
-    <script type='text/javascript'>
+    <script src="{% static 'people/home.js' %}" defer></script>
+    <!-- <script type='text/javascript'>
       var people = {{ people_data|safe }};
-    </script>
+    </script> -->
   </head>
-  <body>
+  <body id="vue_app">
     <header>
-      <h1>Star Wars Characters Explorer</h1>
+      <h1><a :href="url">Star Wars Characters Explorer</a></h1>
     </header>
 
     <section id="collections">
       <h2>Collections</h2>
-      <input type="text" v-model="enteredGoalValue"/>
-      <button @click="fetchData">Fetch data</button>
-      <p v-if="people.length === 0">No people data available. Please fetch the fresh data.</p>
+      <button v-if="fetchError">[[ fetchError ]]</button>
+      <button v-else-if="isLoading">Loading...</button>
+      <button v-else @click="fetchNewData()">Fetch data</button>
+
+      <p v-if="loadError">[[ loadError ]]</p>
+      <p v-else-if="peopleData.length === 0">
+        No people data available. Please fetch the fresh data.
+      </p>
       <ul v-else>
-        <li v-for="person in people" :key="person.id">
-          [[ person ]]
+        <li v-for="person in peopleData" :key="person.id">
+          <a :href="url + person.id + '/'">[[ person.date_created ]]</a>
         </li>
       </ul>
     </section>

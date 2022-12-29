@@ -25,7 +25,7 @@ from people.urls import api_people_urlpatterns, people_urlpatterns
 
 urlpatterns = [
     path('', include(people_urlpatterns)),
-    path('api/people/', include(api_people_urlpatterns)),
+    path('api/', include(api_people_urlpatterns)),
 ]
 
 # Swagger DOCS

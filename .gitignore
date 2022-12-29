@@ -106,3 +106,4 @@ dmypy.json
 local.py
 local/
 .DS_store
+people_csv/
