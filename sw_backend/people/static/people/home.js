@@ -51,6 +51,7 @@ const app = Vue.createApp({
           this.peopleData.unshift({
             id: data.id,
             file_name: data.file_name,
+            date_created: data.date_created,
           });
         });
     },

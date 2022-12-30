@@ -1,5 +1,7 @@
 import csv
 import json
+import random
+import string
 from datetime import datetime
 
 import petl as etl
@@ -40,7 +42,8 @@ class PeopleDetailView(TemplateView):
 class FetchPeopleAPIView(views.APIView):
     def post(self, request, *args, **kwargs):
         characters_data = fetch_people_data()
-        name = f'{datetime.now().strftime("%Y-%m-%d %H-%M-%S")}.csv'
+        random_string = ''.join(random.choices(string.ascii_letters, k=7))
+        name = f'{datetime.now().strftime("%Y-%m-%d_%H-%M-%S")}_{random_string}.csv'
         file_path = f'{PEOPLE_CSV_PATH}/{name}'
 
         # table = [[field for field in characters_data[0]]]

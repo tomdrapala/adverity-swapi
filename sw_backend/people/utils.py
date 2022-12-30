@@ -52,6 +52,13 @@ def get_resource_data(url):
 
 
 def get_homeworld_mapping(homeworld_data):
+    # Alternative version
+    # homeworld_data = get_resource_data(HOMEWORLD_URL)
+    # mapping = dict()
+    # for obj in homeworld_data:
+    #     planet_id = obj['url'].split('/')[-2]
+    #     mapping[planet_id] = obj['name']
+
     mapping = dict()
     for url in homeworld_data:
         planet_id = url.split('/')[-2]
@@ -59,13 +66,6 @@ def get_homeworld_mapping(homeworld_data):
             planet = fetch_data(url)
             if name := planet.get('name'):
                 mapping[planet_id] = name
-
-    # Alternative version
-    # homeworld_data = get_resource_data(HOMEWORLD_URL)
-    # mapping = dict()
-    # for obj in homeworld_data:
-    #     planet_id = obj['url'].split('/')[-2]
-    #     mapping[planet_id] = obj['name']
 
     # with open('local/planet_mapping.json', 'r') as file:
     #     mapping = json.load(file)
@@ -81,6 +81,15 @@ def substitute_homeworld_names(data):
     return data
 
 
+def fetch_people_data():
+    data = get_resource_data(PEOPLE_URL)
+    data = substitute_homeworld_names(data)
+    if data:
+        serializer = CharacterSerializer(data=data, many=True)
+        serializer.is_valid(raise_exception=True)
+        return serializer.validated_data
+
+
 # def refresh_characters():
 #     data = get_resource_data(PEOPLE_URL)
 #     data = substitute_homeworld_names(data)
@@ -92,12 +101,3 @@ def substitute_homeworld_names(data):
 #         Character.objects.all().delete()
 #         serializer.save()
 #         update_last_update_date()
-
-
-def fetch_people_data():
-    data = get_resource_data(PEOPLE_URL)
-    data = substitute_homeworld_names(data)
-    if data:
-        serializer = CharacterSerializer(data=data, many=True)
-        serializer.is_valid(raise_exception=True)
-        return serializer.validated_data
