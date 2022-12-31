@@ -12,6 +12,7 @@ body {
 
 a {
   text-decoration: none;
+  margin: 0 0.5rem;
 }
 
 header a {

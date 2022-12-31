@@ -9,8 +9,19 @@
       href="https://fonts.googleapis.com/css2?family=Jost:wght@400;700&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="{% static 'people/style.css' %}" />
+    <!-- Bootstrap -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD"
+      crossorigin="anonymous"
+    />
+    <!-- Bootstrap Font Icon CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" />
+    <!-- Vue.jx -->
     <script src="https://unpkg.com/vue@next" defer></script>
+    <!-- Custom -->
+    <link rel="stylesheet" href="{% static 'people/style.css' %}" />
     <script src="{% static 'people/home.js' %}" defer></script>
     <!-- <script type='text/javascript'>
       var people = {{ people_data|safe }};
@@ -34,6 +45,9 @@
       <ul v-else>
         <li v-for="person in peopleData" :key="person.id">
           <a :href="url + person.id + '/'">[[ person.date_created ]]</a>
+          <a :href="url + 'api/people/' + person.id + '/file_download/'" download>
+            <i class="bi bi-download"></i>
+          </a>
         </li>
       </ul>
     </section>
