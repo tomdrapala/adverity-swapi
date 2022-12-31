@@ -129,6 +129,7 @@ header {
 
 .toggle-description {
   font: inherit;
+  cursor: pointer;
   border: 1px solid #8c8c8c;
   background-color: #999999;
   color: white;
@@ -145,12 +146,14 @@ header {
 
 
 .switch input {
+  cursor: pointer;
   position: absolute;
   opacity: 0;
 }
 
 .switch {
   display: inline-block;
+  cursor: pointer;
   font-size: 20px;
   height: 1em;
   width: 2em;
