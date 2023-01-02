@@ -1,3 +1,4 @@
+from logging import getLogger
 import json
 
 import petl as etl
@@ -10,6 +11,7 @@ from rest_framework.decorators import action
 from people import PEOPLE_CSV_PATH
 from people.models import People
 from people.serializers import PeopleSerializer
+logger = getLogger(__name__)
 
 
 class PeopleAPIViewSet(viewsets.ReadOnlyModelViewSet):
@@ -28,8 +30,8 @@ class PeopleAPIViewSet(viewsets.ReadOnlyModelViewSet):
         try:
             result.tojson(sink)
         except FileNotFoundError:
-            # TODO: set up logger
             # We could set up some email notifications to inform of such situation
+            logger.error(f"Could not find CSV file - {instance}")
             instance.is_removed = True
             instance.save()
             return Response(status=status.HTTP_404_NOT_FOUND)

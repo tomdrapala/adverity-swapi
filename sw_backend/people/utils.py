@@ -1,12 +1,14 @@
 import json
-import requests
 from collections import defaultdict
+from logging import getLogger
 
+import requests
 from django.conf import settings
 from rest_framework import status
 
 from people.serializers import CharacterSerializer
 
+logger = getLogger(__name__)
 PEOPLE_URL = getattr(settings, 'PEOPLE_URL', '')
 HOMEWORLD_URL = getattr(settings, 'HOMEWORLD_URL', '')
 
@@ -17,7 +19,7 @@ def fetch_data(url):
         try:
             return json.loads(result.content)
         except json.JSONDecodeError:
-            # TODO: set up logger
+            logger.error(f"Error while fetching SW data - {result}")
             pass
     return dict()
 

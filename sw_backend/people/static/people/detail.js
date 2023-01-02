@@ -77,8 +77,6 @@ const app = Vue.createApp({
       this.aggregatedPeopleData = []
     },
     getCellValue(dict, key) {
-      // TODO: parse list data to strings
-      // return dict[key]
       if (dict[key][0] && dict[key][0] === '[') {
         return dict[key].slice(1,-1).replaceAll("'", "")
       } else {

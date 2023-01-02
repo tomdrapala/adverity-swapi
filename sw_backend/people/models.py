@@ -1,5 +1,9 @@
-from django.db import models
+from logging import getLogger
+
 from django.contrib.postgres.fields import ArrayField
+from django.db import models
+
+logger = getLogger(__name__)
 
 
 class People(models.Model):
@@ -34,5 +38,5 @@ class Character(models.Model):
     def save(self, *args, **kwargs):
         """Currently model being used only to facilitate data validation on serializer
         not for storing in database table"""
-        # TODO: add logger
+        logger.warning(f"Attempted Character save - {self}")
         pass

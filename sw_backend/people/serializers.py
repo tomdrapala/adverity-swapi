@@ -1,8 +1,11 @@
 from datetime import datetime
+from logging import getLogger
+
 from rest_framework import serializers
 
 from people.models import Character, People
 
+logger = getLogger(__name__)
 EMPTY_VALUE = ['unknown', 'n/a', 'none']
 
 
@@ -26,8 +29,8 @@ class CharacterSerializer(serializers.ModelSerializer):
     def format_date(self, value):
         try:
             return datetime.strptime(value, '%Y-%m-%dT%H:%M:%S.%fZ').date()
-        except ValueError:
-            # TODO: add logger
+        except ValueError as e:
+            logger.error(f"Error while parsing date - {e}")
             raise serializers.ValidationError
 
     def empty_value_validation(self, value):

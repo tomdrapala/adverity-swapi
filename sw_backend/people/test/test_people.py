@@ -1,8 +1,9 @@
 import json
+import logging
 import os
 from unittest.mock import patch
-import petl as etl
 
+import petl as etl
 from django.test import TestCase
 from django.urls import reverse
 from rest_framework import status
@@ -11,6 +12,8 @@ from rest_framework.test import APIClient
 from people import PEOPLE_CSV_PATH
 from people.models import People
 from people.utils import substitute_homeworld_names
+
+logging.disable(logging.CRITICAL)
 
 
 class PeopleTestCase(TestCase):

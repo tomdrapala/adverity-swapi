@@ -114,14 +114,13 @@ DATABASES = {
     # }
 }
 
-# TODO: take care of creating database table: python manage.py createcachetable
-CACHES = {
-    'default': {
-        'BACKEND': 'django.core.cache.backends.db.DatabaseCache',
-        'LOCATION': 'cache_table',
-        'TIMEOUT': 3600  # 60 seconds * 60 minutes
-    }
-}
+# CACHES = {
+#     'default': {
+#         'BACKEND': 'django.core.cache.backends.db.DatabaseCache',
+#         'LOCATION': 'cache_table',
+#         'TIMEOUT': 3600  # 60 seconds * 60 minutes
+#     }
+# }
 
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
@@ -152,6 +151,40 @@ TIME_ZONE = 'UTC'
 USE_I18N = True
 
 USE_TZ = True
+
+
+
+LOG_PATH = os.path.join(BASE_DIR, 'logs')
+if not os.path.exists(LOG_PATH):
+    os.mkdir(LOG_PATH)
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'verbose': {
+            'format': '{asctime} - {levelname} - {filename} - {message}',
+            'style': '{',
+        },
+    },
+    'handlers': {
+        'people': {
+            'level': 'INFO',
+            'class': 'logging.handlers.RotatingFileHandler',
+            'filename': os.path.join(LOG_PATH, 'people.log'),
+            'maxBytes': 1*1000000,  # 1 MB
+            'backupCount': 2,        # If exceeded oldest backup files will be deleted
+            'formatter': 'verbose',
+        },
+    },
+    'loggers': {
+        'people': {
+            'handlers': ['people'],
+            # 'level': 'INFO',  # Uncomment to log INFO level events
+            'propagate': True,
+        },
+    },
+}
 
 
 # Static files (CSS, JavaScript, Images)
