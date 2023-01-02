@@ -1,5 +1,4 @@
 import json
-import csv
 
 import petl as etl
 from django.http import HttpResponse
@@ -7,7 +6,6 @@ from django.shortcuts import get_object_or_404
 from rest_framework import viewsets, status
 from rest_framework.response import Response
 from rest_framework.decorators import action
-# from rest_framework_csv.renderers import CSVRenderer
 
 from people import PEOPLE_CSV_PATH
 from people.models import People
@@ -24,8 +22,8 @@ class PeopleAPIViewSet(viewsets.ReadOnlyModelViewSet):
         sink = etl.MemorySource()
 
         file_data = etl.fromcsv(f'{PEOPLE_CSV_PATH}/{instance.file_name}')
-        start = int(request.query_params.get('start_row', 0))
-        result = etl.dicts(file_data, start, start+10)
+        start_row = int(request.query_params.get('start_row', 0))
+        result = etl.dicts(file_data, start_row, start_row+10)
         result = etl.fromdicts(result)
         try:
             result.tojson(sink)

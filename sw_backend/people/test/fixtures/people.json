@@ -1,0 +1,72 @@
+[
+    {
+        "model": "people.people",
+        "pk": 1,
+        "fields":
+        {
+            "file_name": "2023-01-01_01-01-01.csv",
+            "date_created": "2023-01-02T15:19:25.455Z",
+            "is_removed": false
+        }
+    },
+    {
+        "model": "people.people",
+        "pk": 2,
+        "fields":
+        {
+            "file_name": "2023-01-02_15-19-44_IbxrEdh.csv",
+            "date_created": "2023-01-02T15:19:44.522Z",
+            "is_removed": true
+        }
+    },
+    {
+        "model": "people.people",
+        "pk": 3,
+        "fields":
+        {
+            "file_name": "2023-01-02_15-20-00_fphohCr.csv",
+            "date_created": "2023-01-02T15:20:00.344Z",
+            "is_removed": true
+        }
+    },
+    {
+        "model": "people.people",
+        "pk": 4,
+        "fields":
+        {
+            "file_name": "2023-01-02_15-54-41_siRufHr.csv",
+            "date_created": "2023-01-02T15:54:41.240Z",
+            "is_removed": false
+        }
+    },
+    {
+        "model": "people.people",
+        "pk": 5,
+        "fields":
+        {
+            "file_name": "2023-01-02_16-02-14_lWSPYcG.csv",
+            "date_created": "2023-01-02T16:02:14.181Z",
+            "is_removed": false
+        }
+    },
+    {
+        "model": "people.people",
+        "pk": 6,
+        "fields":
+        {
+            "file_name": "2023-01-02_16-20-34_qjVwZBD.csv",
+            "date_created": "2023-01-02T16:20:35.002Z",
+            "is_removed": false
+        }
+    },
+    {
+        "model": "people.people",
+        "pk": 7,
+        "fields":
+        {
+            "file_name": "2023-01-02_16-20-37_wMDNaZP.csv",
+            "date_created": "2023-01-02T16:20:37.392Z",
+            "is_removed": false
+        }
+    }
+]

@@ -1,0 +1,83 @@
+name,height,mass,birth_year,gender,homeworld,date,hair_color,eye_color,skin_color
+Luke Skywalker,172,77,19BBY,male,Tatooine,2014-12-20,['blond'],['blue'],['fair']
+C-3PO,167,75,112BBY,,Tatooine,2014-12-20,,['yellow'],['gold']
+R2-D2,96,32,33BBY,,Naboo,2014-12-20,,['red'],"['white', 'blue']"
+Darth Vader,202,136,419BBY,male,Tatooine,2014-12-20,,['yellow'],['white']
+Leia Organa,150,49,19BBY,female,Alderaan,2014-12-20,['brown'],['brown'],['light']
+Owen Lars,178,120,52BBY,male,Tatooine,2014-12-20,"['brown', 'grey']",['blue'],['light']
+Beru Whitesun lars,165,75,47BBY,female,Tatooine,2014-12-20,['brown'],['blue'],['light']
+R5-D4,97,32,,,Tatooine,2014-12-20,,['red'],"['white', 'red']"
+Biggs Darklighter,183,84,24BBY,male,Tatooine,2014-12-20,['black'],['brown'],['light']
+Obi-Wan Kenobi,182,77,57BBY,male,Stewjon,2014-12-20,"['auburn', 'white']",['blue-gray'],['fair']
+Anakin Skywalker,188,84,419BBY,male,Tatooine,2014-12-20,['blond'],['blue'],['fair']
+Wilhuff Tarkin,180,,64BBY,male,Eriadu,2014-12-20,"['auburn', 'grey']",['blue'],['fair']
+Chewbacca,228,112,200BBY,male,Kashyyyk,2014-12-20,['brown'],['blue'],
+Han Solo,180,80,29BBY,male,Corellia,2014-12-20,['brown'],['brown'],['fair']
+Greedo,173,74,44BBY,male,Rodia,2014-12-20,,['black'],['green']
+Jabba Desilijic Tiure,175,1358,600BBY,hermaphrodite,Nal Hutta,2014-12-20,,['orange'],"['green-tan', 'brown']"
+Wedge Antilles,170,77,21BBY,male,Corellia,2014-12-20,['brown'],['hazel'],['fair']
+Jek Tono Porkins,180,110,,male,Bestine IV,2014-12-20,['brown'],['blue'],['fair']
+Yoda,66,17,896BBY,male,,2014-12-20,['white'],['brown'],['green']
+Palpatine,170,75,82BBY,male,Naboo,2014-12-20,['grey'],['yellow'],['pale']
+Boba Fett,183,782,315BBY,male,Kamino,2014-12-20,['black'],['brown'],['fair']
+IG-88,200,140,15BBY,,,2014-12-20,,['red'],['metal']
+Bossk,190,113,53BBY,male,Trandosha,2014-12-20,,['red'],['green']
+Lando Calrissian,177,79,31BBY,male,Socorro,2014-12-20,['black'],['brown'],['dark']
+Lobot,175,79,37BBY,male,Bespin,2014-12-20,,['blue'],['light']
+Ackbar,180,83,41BBY,male,Mon Cala,2014-12-20,,['orange'],['brown mottle']
+Mon Mothma,150,,48BBY,female,Chandrila,2014-12-20,['auburn'],['blue'],['fair']
+Arvel Crynyd,,,,male,,2014-12-20,['brown'],['brown'],['fair']
+Wicket Systri Warrick,88,20,8BBY,male,Endor,2014-12-20,['brown'],['brown'],['brown']
+Nien Nunb,160,68,,male,Sullust,2014-12-20,,['black'],['grey']
+Qui-Gon Jinn,193,89,92BBY,male,,2014-12-20,['brown'],['blue'],['fair']
+Nute Gunray,191,90,,male,Cato Neimoidia,2014-12-20,,['red'],['mottled green']
+Finis Valorum,170,,91BBY,male,Coruscant,2014-12-20,['blond'],['blue'],['fair']
+Padmé Amidala,185,45,46BBY,female,Naboo,2014-12-20,['brown'],['brown'],['light']
+Jar Jar Binks,196,66,52BBY,male,Naboo,2014-12-20,,['orange'],['orange']
+Roos Tarpals,224,82,,male,Naboo,2014-12-20,,['orange'],['grey']
+Rugor Nass,206,,,male,Naboo,2014-12-20,,['orange'],['green']
+Ric Olié,183,,,male,Naboo,2014-12-20,['brown'],['blue'],['fair']
+Watto,137,,,male,Toydaria,2014-12-20,['black'],['yellow'],"['blue', 'grey']"
+Sebulba,112,40,,male,Malastare,2014-12-20,,['orange'],"['grey', 'red']"
+Quarsh Panaka,183,,62BBY,male,Naboo,2014-12-20,['black'],['brown'],['dark']
+Shmi Skywalker,163,,72BBY,female,Tatooine,2014-12-20,['black'],['brown'],['fair']
+Darth Maul,175,80,54BBY,male,Dathomir,2014-12-20,,['yellow'],['red']
+Bib Fortuna,180,,,male,Ryloth,2014-12-20,,['pink'],['pale']
+Ayla Secura,178,55,48BBY,female,Ryloth,2014-12-20,,['hazel'],['blue']
+Ratts Tyerel,79,15,,male,Aleen Minor,2014-12-20,,,"['grey', 'blue']"
+Dud Bolt,94,45,,male,Vulpter,2014-12-20,,['yellow'],"['blue', 'grey']"
+Gasgano,122,,,male,Troiken,2014-12-20,,['black'],"['white', 'blue']"
+Ben Quadinaros,163,65,,male,Tund,2014-12-20,,['orange'],"['grey', 'green', 'yellow']"
+Mace Windu,188,84,72BBY,male,Haruun Kal,2014-12-20,,['brown'],['dark']
+Ki-Adi-Mundi,198,82,92BBY,male,Cerea,2014-12-20,['white'],['yellow'],['pale']
+Kit Fisto,196,87,,male,Glee Anselm,2014-12-20,,['black'],['green']
+Eeth Koth,171,,,male,Iridonia,2014-12-20,['black'],['brown'],['brown']
+Adi Gallia,184,50,,female,Coruscant,2014-12-20,,['blue'],['dark']
+Saesee Tiin,188,,,male,Iktotch,2014-12-20,,['orange'],['pale']
+Yarael Poof,264,,,male,Quermia,2014-12-20,,['yellow'],['white']
+Plo Koon,188,80,22BBY,male,Dorin,2014-12-20,,['black'],['orange']
+Mas Amedda,196,,,male,Champala,2014-12-20,,['blue'],['blue']
+Gregar Typho,185,85,,male,Naboo,2014-12-20,['black'],['brown'],['dark']
+Cordé,157,,,female,Naboo,2014-12-20,['brown'],['brown'],['light']
+Cliegg Lars,183,,82BBY,male,Tatooine,2014-12-20,['brown'],['blue'],['fair']
+Poggle the Lesser,183,80,,male,Geonosis,2014-12-20,,['yellow'],['green']
+Luminara Unduli,170,562,58BBY,female,Mirial,2014-12-20,['black'],['blue'],['yellow']
+Barriss Offee,166,50,40BBY,female,Mirial,2014-12-20,['black'],['blue'],['yellow']
+Dormé,165,,,female,Naboo,2014-12-20,['brown'],['brown'],['light']
+Dooku,193,80,102BBY,male,Serenno,2014-12-20,['white'],['brown'],['fair']
+Bail Prestor Organa,191,,67BBY,male,Alderaan,2014-12-20,['black'],['brown'],['tan']
+Jango Fett,183,79,66BBY,male,Concord Dawn,2014-12-20,['black'],['brown'],['tan']
+Zam Wesell,168,55,,female,Zolan,2014-12-20,['blonde'],['yellow'],"['fair', 'green', 'yellow']"
+Dexter Jettster,198,102,,male,Ojom,2014-12-20,,['yellow'],['brown']
+Lama Su,229,88,,male,Kamino,2014-12-20,,['black'],['grey']
+Taun We,213,,,female,Kamino,2014-12-20,,['black'],['grey']
+Jocasta Nu,167,,,female,Coruscant,2014-12-20,['white'],['blue'],['fair']
+R4-P17,96,,,female,,2014-12-20,,"['red', 'blue']","['silver', 'red']"
+Wat Tambor,193,48,,male,Skako,2014-12-20,,,"['green', 'grey']"
+San Hill,191,,,male,Muunilinst,2014-12-20,,['gold'],['grey']
+Shaak Ti,178,57,,female,Shili,2014-12-20,,['black'],"['red', 'blue', 'white']"
+Grievous,216,159,,male,Kalee,2014-12-20,,"['green', 'yellow']","['brown', 'white']"
+Tarfful,234,136,,male,Kashyyyk,2014-12-20,['brown'],['blue'],['brown']
+Raymus Antilles,188,79,,male,Alderaan,2014-12-20,['brown'],['brown'],['light']
+Sly Moore,178,48,,female,Umbara,2014-12-20,,['white'],['pale']
+Tion Medon,206,80,,male,Utapau,2014-12-20,,['black'],['grey']

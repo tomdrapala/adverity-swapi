@@ -23,6 +23,13 @@ class CharacterSerializer(serializers.ModelSerializer):
         model = Character
         exclude = ()
 
+    def format_date(self, value):
+        try:
+            return datetime.strptime(value, '%Y-%m-%dT%H:%M:%S.%fZ').date()
+        except ValueError:
+            # TODO: add logger
+            raise serializers.ValidationError
+
     def empty_value_validation(self, value):
         if value in EMPTY_VALUE:
             return None
@@ -52,6 +59,8 @@ class CharacterSerializer(serializers.ModelSerializer):
         return self.empty_value_validation(value)
 
     def to_internal_value(self, data):
+        if data.get('edited'):
+            data['date'] = self.format_date(data.pop('edited'))
         if data.get('height') in EMPTY_VALUE:
             data['height'] = None
         if data.get('mass') in EMPTY_VALUE:

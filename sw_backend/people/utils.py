@@ -1,29 +1,14 @@
 import json
 import requests
-import threading
-from datetime import datetime
+from collections import defaultdict
 
 from django.conf import settings
-from django.core.cache import cache
 from rest_framework import status
 
 from people.serializers import CharacterSerializer
-from people.models import Character
 
 PEOPLE_URL = getattr(settings, 'PEOPLE_URL', '')
 HOMEWORLD_URL = getattr(settings, 'HOMEWORLD_URL', '')
-
-
-update_lock = threading.Lock()
-
-
-def get_last_update_date():
-    return cache.get('CHARACTER_LAST_UPDATE_DATE')
-
-
-def update_last_update_date():
-    with update_lock:
-        cache.set('CHARACTER_LAST_UPDATE_DATE', datetime.now())
 
 
 def fetch_data(url):
@@ -38,8 +23,6 @@ def fetch_data(url):
 
 
 def get_resource_data(url):
-    # To decrease waiting time of data fetch we could for example
-    # send requests in multiple threads or processes
     data = list()
     chunk = fetch_data(url)
     data.extend(chunk.get('results', []))
@@ -52,21 +35,11 @@ def get_resource_data(url):
 
 
 def get_homeworld_mapping(homeworld_data):
-    # Alternative version
-    # homeworld_data = get_resource_data(HOMEWORLD_URL)
-    # mapping = dict()
-    # for obj in homeworld_data:
-    #     planet_id = obj['url'].split('/')[-2]
-    #     mapping[planet_id] = obj['name']
-
-    mapping = dict()
-    for url in homeworld_data:
-        planet_id = url.split('/')[-2]
-        if planet_id not in mapping:
-            planet = fetch_data(url)
-            if name := planet.get('name'):
-                mapping[planet_id] = name
-
+    homeworld_data = get_resource_data(HOMEWORLD_URL)
+    mapping = defaultdict(str)
+    for obj in homeworld_data:
+        planet_id = obj['url'].split('/')[-2]
+        mapping[planet_id] = obj['name']
     # with open('local/planet_mapping.json', 'r') as file:
     #     mapping = json.load(file)
     return mapping
@@ -88,16 +61,3 @@ def fetch_people_data():
         serializer = CharacterSerializer(data=data, many=True)
         serializer.is_valid(raise_exception=True)
         return serializer.validated_data
-
-
-# def refresh_characters():
-#     data = get_resource_data(PEOPLE_URL)
-#     data = substitute_homeworld_names(data)
-#     if data:
-#         serializer = CharacterSerializer(data=data, many=True)
-#         serializer.is_valid(raise_exception=True)
-#         # After validation we can safely clean Character records
-#         # knowing that they will be replaced by freshly fetched data
-#         Character.objects.all().delete()
-#         serializer.save()
-#         update_last_update_date()

@@ -9,8 +9,8 @@ router.register(r'', PeopleAPIViewSet, basename='people_viewset')
 
 
 people_urlpatterns = [
-    path('', PeopleListView.as_view(), name='people_list'),
-    path('<int:id>/', PeopleDetailView.as_view(), name='people_detail'),
+    path('', PeopleListView.as_view(), name='people_list_view'),
+    path('<int:id>/', PeopleDetailView.as_view(), name='people_detail_view'),
 ]
 
 
