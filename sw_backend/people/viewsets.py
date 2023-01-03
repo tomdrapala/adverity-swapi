@@ -15,6 +15,7 @@ logger = getLogger(__name__)
 
 
 class PeopleAPIViewSet(viewsets.ReadOnlyModelViewSet):
+    """Return stored People data."""
     serializer_class = PeopleSerializer
     queryset = People.objects.existing().order_by('-id')
 
@@ -49,18 +50,18 @@ class PeopleAPIViewSet(viewsets.ReadOnlyModelViewSet):
 
     @action(methods=['GET'], detail=True, url_path='value_count')
     def get_value_count(self, request, **kwargs):
-        """Return aggregated data for the column specified in the url `columns` parameter"""
+        """Return aggregated data for the column specified in the url `columns` parameter."""
         return self.get_data(request, **kwargs)
 
     @action(methods=['GET'], detail=True, url_path='file_name')
     def get_file_name(self, request, **kwargs):
-        """Return the file name"""
+        """Return the file name."""
         instance = get_object_or_404(People, pk=kwargs.get('pk'))
         return Response({"file_name": instance.file_name})
 
     @action(methods=['GET'], detail=True, url_path='file_download')
     def file_download(self, request, **kwargs):
-        """Return csv file"""
+        """Return csv file."""
         instance = get_object_or_404(People, pk=kwargs.get('pk'))
         with open(f'{PEOPLE_CSV_PATH}/{instance.file_name}', newline='') as csv_file:
             response = HttpResponse(csv_file, content_type='text/csv')

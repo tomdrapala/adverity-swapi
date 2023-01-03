@@ -21,6 +21,7 @@ class PeopleDetailView(TemplateView):
 
 
 class FetchPeopleAPIView(views.APIView):
+    """Fetch current data from the [SWAPI](https://pipedream.com/apps/swapi) and save it in csv file."""
     def post(self, request, *args, **kwargs):
         characters_data = fetch_people_data()
         if characters_data:
