@@ -11,8 +11,6 @@ in the Star Wars universe from the [SWAPI](https://pipedream.com/apps/swapi).
 
 Application can be installed and run using Docker or virtual environment.
 
-<br>
-
 ## 1. Docker
 
 ### Prerequisites:
@@ -28,8 +26,6 @@ Containers can be afterwards removed with:
 ```shell
 docker-compose down
 ```
-
-<br>
 
 ## 2. Virtual environment (such as [venv](https://docs.python.org/3/library/venv.html))
  
