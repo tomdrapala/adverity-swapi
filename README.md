@@ -35,7 +35,7 @@ docker-compose down
  
 <br>
 
-This way will require creating [PostgreSQL](https://www.postgresql.org) and providing its credentials in `DATABASES` section of `sw_backend/sw_backend/settings/base.py`
+This way will require creating [PostgreSQL](https://www.postgresql.org) and providing its credentials in `DATABASES` section of `sw_backend/settings/base.py`
 
 <br>
 
