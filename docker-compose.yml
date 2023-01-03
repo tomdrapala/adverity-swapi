@@ -1,4 +1,4 @@
-version: '3.9'
+version: '2.1'
 
 services:
   db:
@@ -27,4 +27,5 @@ services:
     image: swapi
     container_name: swapi_app
     depends_on:
-      - db
+      db:
+        condition: service_healthy
