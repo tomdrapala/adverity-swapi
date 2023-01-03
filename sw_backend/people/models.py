@@ -38,5 +38,5 @@ class Character(models.Model):
     def save(self, *args, **kwargs):
         """Currently model being used only to facilitate data validation on serializer
         not for storing in database table"""
-        logger.warning(f"Attempted Character save - {self}")
+        logger.warning("Attempted Character save")
         pass

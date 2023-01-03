@@ -28,6 +28,11 @@ class FetchPeopleAPIView(views.APIView):
             name = f'{datetime.now().strftime("%Y-%m-%d_%H-%M-%S")}_{random_string}.csv'
             file_path = f'{PEOPLE_CSV_PATH}/{name}'
 
+            # I am writing 1 line at a time instead of creating a complete file in memory
+            # and saving it at once, to avoid memory overflow.
+            # In the current situation, it would be faster to generate a complete file,
+            # because we are not fetching a big amount of data,
+            # but it could become a problem if we'd be working with some bigger data source.
             with open(file_path, 'w') as file:
                 writer = csv.writer(file)
                 writer.writerow([field for field in characters_data[0]])

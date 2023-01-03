@@ -31,8 +31,6 @@ def get_resource_data(url):
     while chunk.get('next'):
         chunk = fetch_data(chunk['next'])
         data.extend(chunk.get('results'))
-    # with open('local/people.json', 'r') as file:
-    #     data = json.load(file)
     return data
 
 
@@ -42,8 +40,6 @@ def get_homeworld_mapping(homeworld_data):
     for obj in homeworld_data:
         planet_id = obj['url'].split('/')[-2]
         mapping[planet_id] = obj['name']
-    # with open('local/planet_mapping.json', 'r') as file:
-    #     mapping = json.load(file)
     return mapping
 
 

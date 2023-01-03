@@ -34,7 +34,7 @@
 
     <section id="collections">
       <h2>Collections</h2>
-      <button v-if="fetchError">[[ fetchError ]]</button>
+      <button v-if="fetchError" @click="fetchNewData()">[[ fetchError ]]</button>
       <button v-else-if="isLoading">Loading...</button>
       <button v-else @click="fetchNewData()">Fetch data</button>
 

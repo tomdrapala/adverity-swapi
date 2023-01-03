@@ -18,49 +18,45 @@ class PeopleAPIViewSet(viewsets.ReadOnlyModelViewSet):
     serializer_class = PeopleSerializer
     queryset = People.objects.existing().order_by('-id')
 
-    def retrieve(self, request, *args, **kwargs):
+    def get_data(self, request, **kwargs):
         instance = get_object_or_404(People, pk=kwargs.get('pk'))
-        self.get_object()
+        file_data = etl.fromcsv(f'{PEOPLE_CSV_PATH}/{instance.file_name}')
         sink = etl.MemorySource()
 
-        file_data = etl.fromcsv(f'{PEOPLE_CSV_PATH}/{instance.file_name}')
-        start_row = int(request.query_params.get('start_row', 0))
-        result = etl.dicts(file_data, start_row, start_row+10)
+        columns = request.query_params.get('columns')
+        if self.action == 'get_value_count' and columns:
+            columns = columns.split(',')
+            table = etl.cut(file_data, *columns)
+            table = etl.aggregate(table, (columns), len)
+            result = etl.dicts(table)
+        else:
+            start_row = int(request.query_params.get('start_row', 0))
+            result = etl.dicts(file_data, start_row, start_row+10)
+
         result = etl.fromdicts(result)
         try:
             result.tojson(sink)
         except FileNotFoundError:
-            # We could set up some email notifications to inform of such situation
+            # We could set up email notifications to inform of such situation
             logger.error(f"Could not find CSV file - {instance}")
             instance.is_removed = True
             instance.save()
             return Response(status=status.HTTP_404_NOT_FOUND)
         return Response(json.loads(sink.getvalue()))
 
+    def retrieve(self, request, *args, **kwargs):
+        return self.get_data(request, **kwargs)
+
+    @action(methods=['GET'], detail=True, url_path='value_count')
+    def get_value_count(self, request, **kwargs):
+        """Return aggregated data for the column specified in the url `columns` parameter"""
+        return self.get_data(request, **kwargs)
+
     @action(methods=['GET'], detail=True, url_path='file_name')
     def get_file_name(self, request, **kwargs):
         """Return the file name"""
         instance = get_object_or_404(People, pk=kwargs.get('pk'))
         return Response({"file_name": instance.file_name})
-
-    @action(methods=['GET'], detail=True, url_path='value_count')
-    def get_value_count(self, request, **kwargs):
-        """Return data aggregated for columns provided in `columns` url parameter"""
-        columns = request.query_params.get('columns', '').split(',')
-        instance = get_object_or_404(People, pk=kwargs.get('pk'))
-        sink = etl.MemorySource()
-        file_data = etl.fromcsv(f'{PEOPLE_CSV_PATH}/{instance.file_name}')
-        table = etl.cut(file_data, *columns)
-        table = etl.aggregate(table, (columns), len)
-        result = etl.dicts(table)
-        result = etl.fromdicts(result)
-        try:
-            result.tojson(sink)
-        except FileNotFoundError:
-            instance.is_removed = True
-            instance.save()
-            return Response(status=status.HTTP_404_NOT_FOUND)
-        return Response(json.loads(sink.getvalue()))
 
     @action(methods=['GET'], detail=True, url_path='file_download')
     def file_download(self, request, **kwargs):

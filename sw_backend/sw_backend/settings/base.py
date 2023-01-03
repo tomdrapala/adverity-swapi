@@ -91,14 +91,10 @@ WSGI_APPLICATION = 'sw_backend.wsgi.application'
 
 
 # Database
-# https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
-# TODO: write better description
-# Database used in the project is PostgreSQL.
-# It requires previous creation of postgres database and providing its details in the .env file,
-# or straight in below dictionary (not recommended for production for security reasons).
-# Database can be easily switched to a different one - for example to SQLite
-# by commenting first dictionary and and uncommenting latter one.
+# The database used in the project is PostgreSQL.
+# The database needs to be previously created and its details filled in the .env file,
+# or straight in the below dictionary (not recommended on production deployent for security reasons).
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
@@ -107,11 +103,7 @@ DATABASES = {
         'PASSWORD': os.getenv('DATABASE_PASSWORD', 'postgres'),
         'HOST': os.getenv('DATABASE_HOST', '127.0.0.1'),
         'PORT': os.getenv('DATABASE_PORT', '5432'),
-    },
-    # 'default': {
-    #     'ENGINE': 'django.db.backends.sqlite3',
-    #     'NAME': BASE_DIR / 'db.sqlite3',
-    # }
+    }
 }
 
 # CACHES = {
