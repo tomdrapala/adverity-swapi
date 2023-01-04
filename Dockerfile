@@ -5,7 +5,6 @@ ENV PYTHONDONTWRITEBYTECODE 1
 WORKDIR /app
 RUN apk update
 RUN apk add postgresql-dev gcc python3-dev musl-dev
-# COPY requirements.txt requirements.txt
 ADD . .
 RUN pip install -r requirements.txt
 COPY docker-entrypoint.sh /scripts/docker-entrypoint.sh
