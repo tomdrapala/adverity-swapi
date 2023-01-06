@@ -14,10 +14,18 @@ class PeopleSerializer(serializers.ModelSerializer):
         model = People
         exclude = ('is_removed',)
 
+    def parse_date(self, date):
+        for fmt in ('%Y-%m-%dT%H:%M:%S.%fZ', '%Y-%m-%dT%H:%M:%SZ'):
+            try:
+                return datetime.strptime(date, fmt).strftime("%d %B %Y, %H:%M:%S")
+            except ValueError:
+                # In case of parsing failure just return the raw date string
+                pass
+        return date
+
     def to_representation(self, instance):
         ret = super().to_representation(instance)
-        ret['date_created'] = datetime.strptime(
-            ret['date_created'], '%Y-%m-%dT%H:%M:%S.%fZ').strftime("%d %B %Y, %H:%M:%S")
+        ret['date_created'] = self.parse_date(ret['date_created'])
         return ret
 
 

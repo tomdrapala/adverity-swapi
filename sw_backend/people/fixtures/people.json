@@ -1,0 +1,12 @@
+[
+    {
+        "model": "people.people",
+        "pk": 1,
+        "fields":
+        {
+            "file_name": "2023-01-01_01-01-01.csv",
+            "date_created": "2023-01-01T01:01:01.000Z",
+            "is_removed": false
+        }
+    }
+]
