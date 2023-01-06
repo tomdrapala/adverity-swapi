@@ -5,7 +5,7 @@ services:
     ports:
       - 5432:5432
     image: postgres:14.1-alpine
-    container_name: postgres_swapi
+    container_name: swapi_postgres
     volumes:
       - .data/db:/var/lib/postgresql/data
     environment:

@@ -116,6 +116,12 @@ header {
   font-weight: 500;
 }
 
+.depiction {
+  font-size: 0.75rem;
+  color: #555755;
+  margin: 1rem auto;
+}
+
 .column-select{
   margin-bottom: 1rem;
 }

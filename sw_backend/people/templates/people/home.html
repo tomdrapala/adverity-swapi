@@ -37,7 +37,8 @@
       <button v-if="fetchError" @click="fetchNewData()">[[ fetchError ]]</button>
       <button v-else-if="isLoading">Loading...</button>
       <button v-else @click="fetchNewData()">Fetch data</button>
-
+      <section v-if="isLoading" class='depiction'>If the fetch requests takes longer than 4-5 seconds it can be caused by temporary poor external API performance.<br>
+        To check it you can reach exemplary <a href="https://swapi.dev/api/people/" target="_blank">SWAPI endpoint</a> and see the response time.</section>
       <p v-if="loadError">[[ loadError ]]</p>
       <p v-else-if="peopleData.length === 0">
         No people data available. Please fetch the fresh data.
